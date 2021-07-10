@@ -42,25 +42,31 @@ export class Phonebook extends Component {
       ),
     }));
   };
+
   pushHandleName = (e) => {
     const id = uuidv4();
     e.preventDefault();
+    if (
+      this.state.contacts.some((contact) => contact.name === this.state.name)
+    ) {
+      alert("Этот контакт уже добавлен в вашу телефонную книгу");
+    } else {
+      this.setState((prevState) => ({
+        contacts: [
+          { id: id, name: this.state.name, number: this.state.number },
+          ...prevState.contacts,
+        ],
+      }));
+    }
 
-    this.setState((prevState) => ({
-      contacts: [
-        prevState.contacts.some((contact) => contact.name === this.state.name)
-          ? alert("Такой контакт уже есть, проверьте данные") ?? {
-              id: id,
-              name: this.state.name,
-              number: this.state.number,
-            }
-          : { id: id, name: this.state.name, number: this.state.number },
-        ...prevState.contacts,
-
-        // ...prevState.contacts,
-        // { id: id, name: this.state.name, number: this.state.number },
-      ],
-    }));
+    // this.setState((prevState) => ({
+    //   contacts: [
+    //     prevState.contacts.some((contact) => contact.name === this.state.name)
+    //       ? alert("Такой контакт уже есть, проверьте данные") ?? {}
+    //       : { id: id, name: this.state.name, number: this.state.number },
+    //     ...prevState.contacts,
+    //   ],
+    // }));
   };
 
   render() {

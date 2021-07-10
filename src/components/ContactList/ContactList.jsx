@@ -6,7 +6,6 @@ import {
 } from "./ContactList.styled";
 
 const ContactList = ({ contactsState, filterState, deleteContact }) => {
-  console.log(contactsState);
   return (
     <ContactCtalog>
       {contactsState
