@@ -11,7 +11,12 @@ import {
   ContactFromTitle,
 } from "./ContactForm.styled";
 
-const ContactForm = ({ pushHandleName, henleDobleNameAndNumber }) => {
+const ContactForm = ({
+  pushHandleName,
+  henleDobleNameAndNumber,
+  nameValue,
+  numberValue,
+}) => {
   const idFormInputName = uuidv4();
   const idFormInputNumber = uuidv4();
   return (
@@ -27,6 +32,7 @@ const ContactForm = ({ pushHandleName, henleDobleNameAndNumber }) => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
+          value={nameValue}
           onChange={henleDobleNameAndNumber}
           id={idFormInputName}
         />
@@ -40,6 +46,7 @@ const ContactForm = ({ pushHandleName, henleDobleNameAndNumber }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
+          value={numberValue}
           id={idFormInputNumber}
           onChange={henleDobleNameAndNumber}
         />

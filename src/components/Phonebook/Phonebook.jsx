@@ -77,6 +77,8 @@ export class Phonebook extends Component {
           <ContactForm
             pushHandleName={this.pushHandleName}
             henleDobleNameAndNumber={this.henleDobleNameAndNumber}
+            nameValue={this.state.name}
+            numberValue={this.state.number}
           />
           <ContactsAndFilterContainer>
             <PhonebookSecondaryTitle>Contacts</PhonebookSecondaryTitle>
