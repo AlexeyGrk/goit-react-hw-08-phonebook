@@ -51,6 +51,7 @@ export class Phonebook extends Component {
         (contact) => contact.id !== contactId
       ),
     }));
+    toast.error("Contact Deleted");
   };
 
   resetNameAndNumber = () => {
@@ -66,7 +67,7 @@ export class Phonebook extends Component {
     if (
       this.state.contacts.some((contact) => contact.name === this.state.name)
     ) {
-      toast.error("THE CONTACT IS ALREADY IN THE PHONEBOOK");
+      toast.error("Contact is already added in the phonebook");
     } else {
       this.setState((prevState) => ({
         contacts: [
@@ -74,7 +75,7 @@ export class Phonebook extends Component {
           ...prevState.contacts,
         ],
       }));
-      toast.success("CONTACT ADDED");
+      toast.success("Contact added");
       this.resetNameAndNumber();
     }
 
@@ -110,7 +111,7 @@ export class Phonebook extends Component {
             />
           </ContactsAndFilterContainer>
         </ContainerPhonebookWithoutMainTitle>
-        <Toaster />
+        <Toaster position={"top-right"} />
       </SectionContainer>
     );
   }
