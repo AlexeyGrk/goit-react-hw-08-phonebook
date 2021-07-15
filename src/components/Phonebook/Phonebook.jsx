@@ -111,7 +111,17 @@ export class Phonebook extends Component {
             />
           </ContactsAndFilterContainer>
         </ContainerPhonebookWithoutMainTitle>
-        <Toaster position={"top-right"} />
+        <Toaster
+          position={"top-right"}
+          toastOptions={{
+            error: {
+              iconTheme: {
+                primary: "tomato",
+                secondary: "white",
+              },
+            },
+          }}
+        />
       </SectionContainer>
     );
   }
