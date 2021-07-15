@@ -43,6 +43,13 @@ export class Phonebook extends Component {
     }));
   };
 
+  resetNameAndNumber = () => {
+    this.setState({
+      name: "",
+      number: "",
+    });
+  };
+
   pushHandleName = (e) => {
     const id = uuidv4();
     e.preventDefault();
@@ -57,6 +64,7 @@ export class Phonebook extends Component {
           ...prevState.contacts,
         ],
       }));
+      this.resetNameAndNumber();
     }
 
     // this.setState((prevState) => ({
@@ -80,6 +88,7 @@ export class Phonebook extends Component {
             nameValue={this.state.name}
             numberValue={this.state.number}
           />
+
           <ContactsAndFilterContainer>
             <PhonebookSecondaryTitle>Contacts</PhonebookSecondaryTitle>
             <FilterForm handleNameFilter={this.handleNameFilter} />

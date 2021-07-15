@@ -2,14 +2,13 @@ import styled from "@emotion/styled/macro";
 export const ContactFromContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  border: 1px dashed tomato;
 `;
 export const ContactMainForm = styled.form`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-
-  padding: 5px;
+  border: 1px dashed tomato;
+  padding: 10px;
   margin: 10px;
 `;
 export const ContactFormNameLabel = styled.label``;
