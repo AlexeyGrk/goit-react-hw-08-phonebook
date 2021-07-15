@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
 import { v4 as uuidv4 } from "uuid";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
@@ -64,7 +66,7 @@ export class Phonebook extends Component {
     if (
       this.state.contacts.some((contact) => contact.name === this.state.name)
     ) {
-      alert("Этот контакт уже добавлен в вашу телефонную книгу");
+      toast.error("THE CONTACT IS ALREADY IN THE PHONEBOOK");
     } else {
       this.setState((prevState) => ({
         contacts: [
@@ -72,6 +74,7 @@ export class Phonebook extends Component {
           ...prevState.contacts,
         ],
       }));
+      toast.success("CONTACT ADDED");
       this.resetNameAndNumber();
     }
 
@@ -107,6 +110,7 @@ export class Phonebook extends Component {
             />
           </ContactsAndFilterContainer>
         </ContainerPhonebookWithoutMainTitle>
+        <Toaster />
       </SectionContainer>
     );
   }
