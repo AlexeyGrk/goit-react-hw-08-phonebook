@@ -20,10 +20,10 @@ const Phonebook = () => {
   const [number, setNumber] = useState("");
 
   const handleName = (e) => {
-    setName(e.target.value);
+    setName(e.currentTarget.value);
   };
   const handleNumber = (e) => {
-    setNumber(e.target.value);
+    setNumber(e.currentTarget.value);
   };
 
   useEffect(() => {
