@@ -20,6 +20,7 @@ const ContactForm = ({
   handleNumber,
   nameValue,
   numberValue,
+  handleChange,
 }) => {
   const idFormInputName = uuidv4();
   const idFormInputNumber = uuidv4();
@@ -38,7 +39,7 @@ const ContactForm = ({
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
           value={nameValue}
-          onChange={handleName}
+          onChange={handleChange}
           id={idFormInputName}
         />
 
@@ -53,7 +54,7 @@ const ContactForm = ({
           required
           value={numberValue}
           id={idFormInputNumber}
-          onChange={handleNumber}
+          onChange={handleChange}
         />
         <ContactFromMainButton type="submit">Add contact</ContactFromMainButton>
       </ContactMainForm>

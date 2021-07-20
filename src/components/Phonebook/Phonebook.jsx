@@ -19,11 +19,18 @@ const Phonebook = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  const handleName = (e) => {
-    setName(e.currentTarget.value);
-  };
-  const handleNumber = (e) => {
-    setNumber(e.currentTarget.value);
+  const handleChange = (e) => {
+    switch (e.target.name) {
+      case "name":
+        setName(e.target.value);
+        break;
+      case "number":
+        setNumber(e.target.value);
+        break;
+
+      default:
+        return;
+    }
   };
 
   useEffect(() => {
@@ -66,8 +73,7 @@ const Phonebook = () => {
       <ContainerPhonebookWithoutMainTitle>
         <ContactForm
           handleAddContact={handleAddContact}
-          handleName={handleName}
-          handleNumber={handleNumber}
+          handleChange={handleChange}
           nameValue={name}
           numberValue={number}
         />
