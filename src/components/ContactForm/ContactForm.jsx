@@ -16,11 +16,14 @@ import {
 const ContactForm = ({
   pushHandleName,
   henleDobleNameAndNumber,
+  handleName,
+  handleNumber,
   nameValue,
   numberValue,
 }) => {
   const idFormInputName = uuidv4();
   const idFormInputNumber = uuidv4();
+
   return (
     <ContactFromContainer>
       <ContactFromTitle>Add contact</ContactFromTitle>
@@ -35,7 +38,7 @@ const ContactForm = ({
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
           value={nameValue}
-          onChange={henleDobleNameAndNumber}
+          onChange={handleName}
           id={idFormInputName}
         />
 
@@ -50,7 +53,7 @@ const ContactForm = ({
           required
           value={numberValue}
           id={idFormInputNumber}
-          onChange={henleDobleNameAndNumber}
+          onChange={handleNumber}
         />
         <ContactFromMainButton type="submit">Add contact</ContactFromMainButton>
       </ContactMainForm>
