@@ -48,7 +48,7 @@ const Phonebook = () => {
     setName("");
     setNumber("");
   };
-  const pushHandleName = (e) => {
+  const handleAddContact = (e) => {
     const id = uuidv4();
     e.preventDefault();
     if (contacts.some((contact) => contact.name === name)) {
@@ -65,7 +65,7 @@ const Phonebook = () => {
       <PhonebookMainTitle>Phonebook</PhonebookMainTitle>
       <ContainerPhonebookWithoutMainTitle>
         <ContactForm
-          pushHandleName={pushHandleName}
+          handleAddContact={handleAddContact}
           handleName={handleName}
           handleNumber={handleNumber}
           nameValue={name}

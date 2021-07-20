@@ -14,7 +14,7 @@ import {
 } from "./ContactForm.styled";
 
 const ContactForm = ({
-  pushHandleName,
+  handleAddContact,
   henleDobleNameAndNumber,
   handleName,
   handleNumber,
@@ -27,7 +27,7 @@ const ContactForm = ({
   return (
     <ContactFromContainer>
       <ContactFromTitle>Add contact</ContactFromTitle>
-      <ContactMainForm onSubmit={pushHandleName}>
+      <ContactMainForm onSubmit={handleAddContact}>
         <ContactFormNameLabel htmlFor={idFormInputName}>
           Name
         </ContactFormNameLabel>
