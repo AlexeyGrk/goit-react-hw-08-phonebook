@@ -1,8 +1,8 @@
-import React from "react";
+import { memo } from "react";
 import { FilterInput } from "./FilterForm.styled";
 
 const FilterForm = ({ handleNameFilter }) => {
   return <FilterInput onChange={handleNameFilter} type="text" />;
 };
 
-export default FilterForm;
+export default memo(FilterForm);
