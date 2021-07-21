@@ -14,11 +14,32 @@ import {
 } from "./Phonebook.styled";
 
 const Phonebook = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const useLocalStorage = (key, defaultValue) => {
+    const [state, setState] = useState(() => {
+      return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
+    });
 
+    useEffect(() => {
+      localStorage.setItem(key, JSON.stringify(state));
+    }, [key, state]);
+
+    return [state, setState];
+  };
+  const [contacts, setContacts] = useLocalStorage("contacts", []);
+  const [filter, setFilter] = useLocalStorage("filter", "");
+  const [name, setName] = useLocalStorage("name", "");
+  const [number, setNumber] = useLocalStorage("number", "");
+
+  // useEffect(() => {
+  //   const contactsParse = JSON.parse(localStorage.getItem("contacts"));
+  //   if (contactsParse) {
+  //     setContacts(contactsParse);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("contacts", JSON.stringify(contacts));
+  // }, [contacts]);
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -33,17 +54,6 @@ const Phonebook = () => {
     }
   };
 
-  useEffect(() => {
-    const contactsParse = JSON.parse(localStorage.getItem("contacts"));
-    if (contactsParse) {
-      setContacts(contactsParse);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
   const handleNameFilter = (e) => {
     setFilter(e.target.value);
   };
@@ -51,6 +61,7 @@ const Phonebook = () => {
     setContacts(contacts.filter((contact) => contact.id !== contactId));
     toast.error("Contact Deleted");
   };
+
   const resetNameAndNumber = () => {
     setName("");
     setNumber("");
