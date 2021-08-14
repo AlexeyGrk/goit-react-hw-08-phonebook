@@ -1,7 +1,4 @@
-import React from "react";
-
 import { v4 as uuidv4 } from "uuid";
-
 import {
   ContactFromContainer,
   ContactMainForm,
@@ -15,9 +12,6 @@ import {
 
 const ContactForm = ({
   handleAddContact,
-  henleDobleNameAndNumber,
-  handleName,
-  handleNumber,
   nameValue,
   numberValue,
   handleChange,

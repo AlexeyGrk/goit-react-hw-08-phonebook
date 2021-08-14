@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import {
+  addContacts,
+  deleteContactsAction,
+  changeFilter,
+} from "../../redux/slice/contactSlice";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import FilterForm from "../FilterForm/FilterForm";
@@ -14,6 +19,9 @@ import {
 } from "./Phonebook.styled";
 
 const Phonebook = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts.items);
+
   const useLocalStorage = (key, defaultValue) => {
     const [state, setState] = useState(() => {
       return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
@@ -25,8 +33,7 @@ const Phonebook = () => {
 
     return [state, setState];
   };
-  const [contacts, setContacts] = useLocalStorage("contacts", []);
-  const [filter, setFilter] = useLocalStorage("filter", "");
+
   const [name, setName] = useLocalStorage("name", "");
   const [number, setNumber] = useLocalStorage("number", "");
 
@@ -55,10 +62,10 @@ const Phonebook = () => {
   };
 
   const handleNameFilter = (e) => {
-    setFilter(e.target.value);
+    dispatch(changeFilter(e.target.value));
   };
   const deleteContact = (contactId) => {
-    setContacts(contacts.filter((contact) => contact.id !== contactId));
+    dispatch(deleteContactsAction(contactId));
     toast.error("Contact Deleted");
   };
 
@@ -73,7 +80,7 @@ const Phonebook = () => {
       toast.error("Contact is already added in the phonebook");
       return;
     } else {
-      setContacts([{ id: id, name, number }, ...contacts]);
+      dispatch(addContacts({ id: id, name, number }));
       toast.success("Contact added");
       resetNameAndNumber();
     }
@@ -92,11 +99,13 @@ const Phonebook = () => {
         <ContactsAndFilterContainer>
           <PhonebookSecondaryTitle>Contacts</PhonebookSecondaryTitle>
           <FilterForm handleNameFilter={handleNameFilter} />
-          <ContactList
-            contactsState={contacts}
-            filterState={filter}
-            deleteContact={deleteContact}
-          />
+          {contacts.length > 0 ? (
+            <ContactList deleteContact={deleteContact} />
+          ) : (
+            <PhonebookSecondaryTitle>
+              Add please new contacts
+            </PhonebookSecondaryTitle>
+          )}
         </ContactsAndFilterContainer>
       </ContainerPhonebookWithoutMainTitle>
       <Toaster
