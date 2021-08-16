@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import persistReducer from "redux-persist/es/persistReducer";
+
 import { v4 as uuidv4 } from "uuid";
 import {
   addContacts,
@@ -21,9 +21,7 @@ import {
 
 const Phonebook = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(
-    (state) => state.persistedReducer.contacts.items
-  );
+  const contacts = useSelector((state) => state.contacts.items);
 
   const useLocalStorage = (key, defaultValue) => {
     const [state, setState] = useState(() => {

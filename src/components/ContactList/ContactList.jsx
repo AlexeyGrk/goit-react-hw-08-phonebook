@@ -6,12 +6,8 @@ import {
 } from "./ContactList.styled";
 
 const ContactList = ({ deleteContact }) => {
-  const contacts = useSelector(
-    (state) => state.persistedReducer.contacts.items
-  );
-  const filterState = useSelector(
-    (state) => state.persistedReducer.contacts.filter
-  );
+  const contacts = useSelector((state) => state.contacts.items);
+  const filterState = useSelector((state) => state.contacts.filter);
 
   return (
     <ContactCtalog>
