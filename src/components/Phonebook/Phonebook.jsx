@@ -28,7 +28,7 @@ const Phonebook = () => {
     useDeleteContactMutation();
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
 
-  const { data = [], error, isFetching } = useGetContactsQuery();
+  const { data = [], error, isFetching, isLoading } = useGetContactsQuery();
   const contacts = data;
 
   const useLocalStorage = (key, defaultValue) => {
@@ -79,12 +79,12 @@ const Phonebook = () => {
   const handleAddContact = async (e) => {
     e.preventDefault();
     if (contacts.some((contact) => contact.name === name)) {
-      toast.error("Contact is already added in the phonebook");
+      toast.error(`${name} is already added in the phonebook`);
       return;
     } else {
       try {
         await addContactHook({ name, number });
-        toast.success("Contact added");
+        toast.success(`${name} added`);
       } catch (error) {
         toast.error(error.message);
       }

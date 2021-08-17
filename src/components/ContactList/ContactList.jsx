@@ -3,7 +3,7 @@ import {
   ContactCtalog,
   ContactListItem,
   ContactListDeleteButton,
-  TestTeg,
+  NotFoundContainer,
 } from "./ContactList.styled";
 
 const ContactList = ({ deleteContact, contacts }) => {
@@ -16,12 +16,8 @@ const ContactList = ({ deleteContact, contacts }) => {
   );
   return (
     <>
-      {/* {contacts.length !== 0 && filterState !== "" && <TestTeg>Hallo</TestTeg>} */}
       <ContactCtalog>
-        {/* {filterState !== "" && !contacts.number && <h1>Хелло</h1>} */}
-        {/* {filterState !== "" && contacts.length === 0 && <TestTeg>Hallo</TestTeg>} */}
-
-        {contactsFilteredData.length > 0 ? (
+        {contactsFilteredData.length > 0 || filterState === "" ? (
           contactsFilteredData.map(({ id, name, number }) => {
             return (
               <ContactListItem key={id}>
@@ -33,14 +29,14 @@ const ContactList = ({ deleteContact, contacts }) => {
             );
           })
         ) : (
-          <TestTeg>
+          <NotFoundContainer>
             <p> No results were found for your request</p>
             <img
               width="120"
               src="https://img.icons8.com/ios/50/000000/user-not-found.png"
               alt="NotFoundImg"
             />
-          </TestTeg>
+          </NotFoundContainer>
         )}
       </ContactCtalog>
     </>
