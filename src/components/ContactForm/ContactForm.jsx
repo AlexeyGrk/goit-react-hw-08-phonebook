@@ -15,6 +15,7 @@ const ContactForm = ({
   nameValue,
   numberValue,
   handleChange,
+  isAdding,
 }) => {
   const idFormInputName = uuidv4();
   const idFormInputNumber = uuidv4();
@@ -50,7 +51,9 @@ const ContactForm = ({
           id={idFormInputNumber}
           onChange={handleChange}
         />
-        <ContactFromMainButton type="submit">Add contact</ContactFromMainButton>
+        <ContactFromMainButton type="submit" disabled={isAdding}>
+          Add contact
+        </ContactFromMainButton>
       </ContactMainForm>
     </ContactFromContainer>
   );

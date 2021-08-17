@@ -1,6 +1,8 @@
 import styled from "@emotion/styled/macro";
 
-export const SectionContainer = styled.section``;
+export const SectionContainer = styled.section`
+  padding: 12px;
+`;
 
 export const PhonebookMainTitle = styled.h1`
   display: flex;

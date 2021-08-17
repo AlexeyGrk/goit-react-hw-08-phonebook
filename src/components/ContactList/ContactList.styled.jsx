@@ -1,6 +1,8 @@
 import styled from "@emotion/styled/macro";
 
 export const ContactCtalog = styled.ul`
+  margin-block-start: 0;
+  margin-block-end: 0;
   padding: 5px;
 `;
 export const ContactListItem = styled.li`

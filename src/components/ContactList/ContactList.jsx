@@ -5,9 +5,8 @@ import {
   ContactListDeleteButton,
 } from "./ContactList.styled";
 
-const ContactList = ({ deleteContact }) => {
-  const contacts = useSelector((state) => state.contacts.items);
-  const filterState = useSelector((state) => state.contacts.filter);
+const ContactList = ({ deleteContact, contacts }) => {
+  const filterState = useSelector((state) => state.contactsFilter.filter);
 
   return (
     <ContactCtalog>

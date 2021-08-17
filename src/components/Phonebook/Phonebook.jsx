@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-
-import { v4 as uuidv4 } from "uuid";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+import { useDispatch } from "react-redux";
 import {
-  addContacts,
-  deleteContactsAction,
-  changeFilter,
-} from "../../redux/slice/contactSlice";
+  useGetContactsQuery,
+  useDeleteContactMutation,
+  useAddContactMutation,
+} from "../../redux/services/contactsApi";
+
+import { changeFilter } from "../../redux/slice/contactSlice";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import FilterForm from "../FilterForm/FilterForm";
@@ -21,7 +23,15 @@ import {
 
 const Phonebook = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.items);
+  const [deleteContactHook, { isLoading: isDeleting }] =
+    useDeleteContactMutation();
+  const [
+    addContactHook,
+    { isLoading: isAdding, isSuccess: isSuccessAddContact },
+  ] = useAddContactMutation();
+
+  const { data = [], error, isLoading, isFetching } = useGetContactsQuery();
+  const contacts = data;
 
   const useLocalStorage = (key, defaultValue) => {
     const [state, setState] = useState(() => {
@@ -38,16 +48,6 @@ const Phonebook = () => {
   const [name, setName] = useLocalStorage("name", "");
   const [number, setNumber] = useLocalStorage("number", "");
 
-  // useEffect(() => {
-  //   const contactsParse = JSON.parse(localStorage.getItem("contacts"));
-  //   if (contactsParse) {
-  //     setContacts(contactsParse);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("contacts", JSON.stringify(contacts));
-  // }, [contacts]);
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -65,27 +65,36 @@ const Phonebook = () => {
   const handleNameFilter = (e) => {
     dispatch(changeFilter(e.target.value));
   };
-  const deleteContact = (contactId) => {
-    dispatch(deleteContactsAction(contactId));
-    toast.error("Contact Deleted");
+  const deleteContact = async (contactId) => {
+    try {
+      await deleteContactHook(contactId);
+      toast.error("Contact Deleted");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const resetNameAndNumber = () => {
     setName("");
     setNumber("");
   };
-  const handleAddContact = (e) => {
-    const id = uuidv4();
+  const handleAddContact = async (e) => {
     e.preventDefault();
     if (contacts.some((contact) => contact.name === name)) {
       toast.error("Contact is already added in the phonebook");
       return;
     } else {
-      dispatch(addContacts({ id: id, name, number }));
-      toast.success("Contact added");
+      try {
+        await addContactHook({ name, number });
+        toast.success("Contact added");
+      } catch (error) {
+        toast.error(error.message);
+      }
+
       resetNameAndNumber();
     }
   };
+
   return (
     <SectionContainer>
       <PhonebookMainTitle>Phonebook</PhonebookMainTitle>
@@ -95,20 +104,33 @@ const Phonebook = () => {
           handleChange={handleChange}
           nameValue={name}
           numberValue={number}
+          isAdding={isAdding}
         />
 
         <ContactsAndFilterContainer>
           <PhonebookSecondaryTitle>Contacts</PhonebookSecondaryTitle>
           <FilterForm handleNameFilter={handleNameFilter} />
-          {contacts.length > 0 ? (
-            <ContactList deleteContact={deleteContact} />
-          ) : (
+
+          {!isFetching && data && (
+            <ContactList contacts={data} deleteContact={deleteContact} />
+          )}
+          {isFetching && (
+            <Loader
+              type="TailSpin"
+              color="#00BFFF"
+              height={60}
+              width={60}
+              style={{ marginTop: "50px" }}
+            />
+          )}
+          {data.length === 0 && !isFetching && (
             <PhonebookSecondaryTitle>
               Add please new contacts
             </PhonebookSecondaryTitle>
           )}
         </ContactsAndFilterContainer>
       </ContainerPhonebookWithoutMainTitle>
+
       <Toaster
         position={"top-right"}
         toastOptions={{
