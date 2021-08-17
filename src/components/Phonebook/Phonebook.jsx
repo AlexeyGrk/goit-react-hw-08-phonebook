@@ -23,6 +23,7 @@ import {
 
 const Phonebook = () => {
   const dispatch = useDispatch();
+
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
@@ -120,6 +121,7 @@ const Phonebook = () => {
               style={{ marginTop: "50px" }}
             />
           )}
+
           {data.length === 0 && !isFetching && (
             <PhonebookSecondaryTitle>
               Add please new contacts

@@ -20,3 +20,8 @@ export const ContactListItem = styled.li`
 export const ContactListDeleteButton = styled.button`
   margin: 0 5px;
 `;
+export const TestTeg = styled.div`
+  width: 300px;
+  display: grid;
+  place-items: center;
+`;

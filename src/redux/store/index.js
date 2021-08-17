@@ -1,14 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { combineReducers } from "redux";
-// import { contactsApi } from "../services/contactsApi";
+
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { contactsApi } from "../services/contactsApi";
 
 import contactsFilter from "../slice/contactSlice";
-
-// const rootReducer = combineReducers({
-//   contacts,
-// });
 
 export const store = configureStore({
   reducer: {
