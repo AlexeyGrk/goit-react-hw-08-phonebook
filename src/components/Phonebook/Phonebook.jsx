@@ -25,12 +25,9 @@ const Phonebook = () => {
   const dispatch = useDispatch();
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
-  const [
-    addContactHook,
-    { isLoading: isAdding, isSuccess: isSuccessAddContact },
-  ] = useAddContactMutation();
+  const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
 
-  const { data = [], error, isLoading, isFetching } = useGetContactsQuery();
+  const { data = [], error, isFetching } = useGetContactsQuery();
   const contacts = data;
 
   const useLocalStorage = (key, defaultValue) => {
