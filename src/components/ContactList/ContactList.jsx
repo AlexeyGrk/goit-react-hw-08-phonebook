@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { getFilterState } from "../../redux/selectors/contacts-selectors";
 import {
   ContactCtalog,
   ContactListItem,
@@ -7,7 +8,7 @@ import {
 } from "./ContactList.styled";
 
 const ContactList = ({ deleteContact, contacts }) => {
-  const filterState = useSelector((state) => state.contactsFilter.filter);
+  const filterState = useSelector(getFilterState);
   const contactsFilteredData = contacts.filter(
     (contacts) =>
       filterState === "" ||
