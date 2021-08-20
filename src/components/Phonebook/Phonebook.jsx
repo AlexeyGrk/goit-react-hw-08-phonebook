@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { useDispatch } from "react-redux";
@@ -9,7 +10,7 @@ import {
   useAddContactMutation,
 } from "../../redux/services/contactsApi";
 
-import { changeFilter } from "../../redux/slice/contactSlice";
+import { changeFilter, setToken } from "../../redux/slice/contactSlice";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import FilterForm from "../FilterForm/FilterForm";
@@ -20,9 +21,22 @@ import {
   ContactsAndFilterContainer,
   ContainerPhonebookWithoutMainTitle,
 } from "./Phonebook.styled";
+import {
+  useAddUserQuery,
+  useLoginUserMutation,
+} from "../../redux/services/userApi";
 
 const Phonebook = () => {
   const dispatch = useDispatch();
+
+  // const { data: userData, isLoading: loading } = useAddUserQuery({
+  //   name: "Diplomat",
+  //   password: "Diplomat1234",
+  //   email: "Diplomat@mail.com",
+  // });
+  const [loginUserHook, { data: userLoginData, isLoading: hello }] =
+    useLoginUserMutation();
+  dispatch(setToken(userLoginData));
 
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
@@ -30,7 +44,10 @@ const Phonebook = () => {
 
   const { data = [], error, isFetching, isLoading } = useGetContactsQuery();
   const contacts = data;
-
+  // const { data: dataUserLogin } = useLoginUserQuery({
+  //   email: "Diplomat@mail.com",
+  //   password: "Diplomat1234",
+  // });
   const useLocalStorage = (key, defaultValue) => {
     const [state, setState] = useState(() => {
       return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
@@ -50,6 +67,10 @@ const Phonebook = () => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);
+        loginUserHook({
+          email: "Diplomat@mail.com",
+          password: "Diplomat1234",
+        });
         break;
       case "number":
         setNumber(e.target.value);
