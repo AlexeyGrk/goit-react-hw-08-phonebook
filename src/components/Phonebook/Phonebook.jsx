@@ -42,7 +42,12 @@ const Phonebook = () => {
     useDeleteContactMutation();
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
 
-  const { data = [], error, isFetching, isLoading } = useGetContactsQuery();
+  const {
+    data = [],
+    error,
+    isFetching,
+    isLoading: isLoadingContacts,
+  } = useGetContactsQuery();
   const contacts = data;
   // const { data: dataUserLogin } = useLoginUserQuery({
   //   email: "Diplomat@mail.com",
