@@ -34,7 +34,7 @@ const Phonebook = () => {
   //   password: "Diplomat1234",
   //   email: "Diplomat@mail.com",
   // });
-  const [loginUserHook, { data: userLoginData, isLoading: hello }] =
+  const [loginUserHook, { data: userLoginData, isLoading: isLoadingUser }] =
     useLoginUserMutation();
   dispatch(setToken(userLoginData));
 
@@ -67,10 +67,7 @@ const Phonebook = () => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);
-        loginUserHook({
-          email: "Diplomat@mail.com",
-          password: "Diplomat1234",
-        });
+
         break;
       case "number":
         setNumber(e.target.value);
@@ -99,12 +96,17 @@ const Phonebook = () => {
   };
   const handleAddContact = async (e) => {
     e.preventDefault();
+    loginUserHook({
+      email: "Diplomat@mail.com",
+      password: "Diplomat1234",
+    });
     if (contacts.some((contact) => contact.name === name)) {
       toast.error(`${name} is already added in the phonebook`);
       return;
     } else {
       try {
         await addContactHook({ name, number });
+
         toast.success(`${name} added`);
       } catch (error) {
         toast.error(error.message);
