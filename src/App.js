@@ -17,16 +17,20 @@ function App() {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/about">Register</NavLink>
+              <NavLink to="/register">Register</NavLink>
             </li>
             <li>
-              <NavLink to="/users">Login</NavLink>
+              <NavLink to="/login">Login</NavLink>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route path="/about">{/* <About /> */}</Route>
-          <Route path="/users">{/* <Users /> */}</Route>
+          <Route path="/register">
+            <h1>Register page</h1>
+          </Route>
+          <Route path="/login">
+            <h1>Login page</h1>
+          </Route>
           <Route path="/" exact>
             <Phonebook />
           </Route>
