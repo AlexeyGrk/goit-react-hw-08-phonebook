@@ -3,11 +3,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { contactsApi } from "../services/contactsApi";
 import { userApi } from "../services/userApi";
+import setCredentials from "../slice/authSlice";
 import contactsFilter from "../slice/contactSlice";
 
 export const store = configureStore({
   reducer: {
     contactsFilter,
+    setCredentials,
     [contactsApi.reducerPath]: contactsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
   },

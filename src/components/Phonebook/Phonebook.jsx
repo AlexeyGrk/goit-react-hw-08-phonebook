@@ -10,7 +10,7 @@ import {
   useAddContactMutation,
 } from "../../redux/services/contactsApi";
 
-import { changeFilter, setToken } from "../../redux/slice/contactSlice";
+import { changeFilter } from "../../redux/slice/contactSlice";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import FilterForm from "../FilterForm/FilterForm";
@@ -21,22 +21,9 @@ import {
   ContactsAndFilterContainer,
   ContainerPhonebookWithoutMainTitle,
 } from "./Phonebook.styled";
-import {
-  useAddUserQuery,
-  useLoginUserMutation,
-} from "../../redux/services/userApi";
 
 const Phonebook = () => {
   const dispatch = useDispatch();
-
-  // const { data: userData, isLoading: loading } = useAddUserQuery({
-  //   name: "Diplomat",
-  //   password: "Diplomat1234",
-  //   email: "Diplomat@mail.com",
-  // });
-  const [loginUserHook, { data: userLoginData, isLoading: isLoadingUser }] =
-    useLoginUserMutation();
-  dispatch(setToken(userLoginData));
 
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
@@ -49,10 +36,7 @@ const Phonebook = () => {
     isLoading: isLoadingContacts,
   } = useGetContactsQuery();
   const contacts = data;
-  // const { data: dataUserLogin } = useLoginUserQuery({
-  //   email: "Diplomat@mail.com",
-  //   password: "Diplomat1234",
-  // });
+
   const useLocalStorage = (key, defaultValue) => {
     const [state, setState] = useState(() => {
       return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
@@ -101,10 +85,7 @@ const Phonebook = () => {
   };
   const handleAddContact = async (e) => {
     e.preventDefault();
-    loginUserHook({
-      email: "Diplomat@mail.com",
-      password: "Diplomat1234",
-    });
+
     if (contacts.some((contact) => contact.name === name)) {
       toast.error(`${name} is already added in the phonebook`);
       return;

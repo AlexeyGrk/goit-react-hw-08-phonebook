@@ -24,7 +24,7 @@ export const userApi = createApi({
         body: user,
       }),
 
-      providesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
 
     // deleteContact: builder.mutation({

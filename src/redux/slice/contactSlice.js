@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   filter: "",
-  token: {},
 };
 export const contactSlice = createSlice({
   name: "contactsFilter",
@@ -10,9 +9,6 @@ export const contactSlice = createSlice({
   reducers: {
     changeFilter: (state, action) => {
       state.filter = action.payload;
-    },
-    setToken: (state, action) => {
-      state.token = action.payload;
     },
   },
 });

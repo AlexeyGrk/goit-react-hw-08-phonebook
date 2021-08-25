@@ -6,7 +6,7 @@ export const contactsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://connections-api.herokuapp.com",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().contactsFilter.token?.token;
+      const token = getState().setCredentials?.token;
 
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
@@ -18,7 +18,9 @@ export const contactsApi = createApi({
   endpoints: (builder, headers) => ({
     getContacts: builder.query({
       query: () => `/contacts`,
+
       headers,
+
       providesTags: ["Contacts"],
     }),
     deleteContact: builder.mutation({

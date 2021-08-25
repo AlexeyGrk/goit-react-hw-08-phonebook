@@ -5,7 +5,11 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
-import Phonebook from "./components/Phonebook/Phonebook";
+
+import ContactsPage from "./views/ContactsPage";
+import LoginPage from "./views/LoginPage";
+
+import RegisterPage from "./views/RegisterPage";
 
 function App() {
   return (
@@ -22,17 +26,23 @@ function App() {
             <li>
               <NavLink to="/login">Login</NavLink>
             </li>
+            <li>
+              <NavLink to="/contacts">Contacts</NavLink>
+            </li>
           </ul>
         </nav>
         <Switch>
           <Route path="/register">
-            <h1>Register page</h1>
+            <RegisterPage />
           </Route>
           <Route path="/login">
-            <h1>Login page</h1>
+            <LoginPage></LoginPage>
           </Route>
           <Route path="/" exact>
-            <Phonebook />
+            <h1>Start Page</h1>
+          </Route>
+          <Route path="/contacts" exact>
+            <ContactsPage></ContactsPage>
           </Route>
         </Switch>
       </div>
