@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Switch,
+  Redirect,
 } from "react-router-dom";
 import "./App.css";
 
@@ -12,6 +14,7 @@ import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 
 function App() {
+  const loggedIn = useSelector((state) => state.setCredentials.isLogin);
   return (
     <Router>
       <div className="App">
@@ -36,13 +39,21 @@ function App() {
             <RegisterPage />
           </Route>
           <Route path="/login">
-            <LoginPage></LoginPage>
+            {loggedIn ? (
+              <h1>Вы уже вошли в свой аккаунт</h1>
+            ) : (
+              <LoginPage></LoginPage>
+            )}
           </Route>
           <Route path="/" exact>
             <h1>Start Page</h1>
           </Route>
           <Route path="/contacts" exact>
-            <ContactsPage></ContactsPage>
+            {!loggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <ContactsPage></ContactsPage>
+            )}
           </Route>
         </Switch>
       </div>
