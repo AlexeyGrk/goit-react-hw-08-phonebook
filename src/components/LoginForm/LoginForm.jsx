@@ -37,12 +37,23 @@ const LoginForm = () => {
       ) : (
         <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">
-            Name
-            <input {...register("email")} id="email" />
+            Email
+            <input
+              required
+              // pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+              {...register("email")}
+              type="email"
+              id="email"
+            />
           </label>
           <label htmlFor="password">
             Password
-            <input {...register("password")} id="password" />
+            <input
+              required
+              {...register("password")}
+              type="password"
+              id="password"
+            />
           </label>
           <button type="submit">Login</button>
         </LoginMainForm>

@@ -1,12 +1,20 @@
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+
 import {
   BrowserRouter as Router,
   Route,
-  NavLink,
   Switch,
   Redirect,
 } from "react-router-dom";
 import "./App.css";
+import {
+  NavHeader,
+  Nav,
+  NavList,
+  NavListItem,
+  NavigationLink,
+} from "./App.styled";
 
 import ContactsPage from "./views/ContactsPage";
 import LoginPage from "./views/LoginPage";
@@ -18,32 +26,35 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">Register</NavLink>
-            </li>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contacts">Contacts</NavLink>
-            </li>
-          </ul>
-        </nav>
+        <NavHeader>
+          <Nav>
+            <NavList>
+              <NavListItem>
+                <NavigationLink to="/">Home</NavigationLink>
+              </NavListItem>
+              {!loggedIn && (
+                <NavListItem>
+                  <NavigationLink to="/register">Register</NavigationLink>
+                </NavListItem>
+              )}
+              {!loggedIn && (
+                <NavListItem>
+                  <NavigationLink to="/login">Login</NavigationLink>
+                </NavListItem>
+              )}
+              <NavListItem>
+                <NavigationLink to="/contacts">Contacts</NavigationLink>
+              </NavListItem>
+            </NavList>
+          </Nav>
+        </NavHeader>
+
         <Switch>
           <Route path="/register">
             <RegisterPage />
           </Route>
           <Route path="/login">
-            {loggedIn ? (
-              <h1>Вы уже вошли в свой аккаунт</h1>
-            ) : (
-              <LoginPage></LoginPage>
-            )}
+            {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}
           </Route>
           <Route path="/" exact>
             <h1>Start Page</h1>

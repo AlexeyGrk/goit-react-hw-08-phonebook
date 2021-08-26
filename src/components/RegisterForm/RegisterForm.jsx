@@ -34,6 +34,9 @@ const RegisterForm = () => {
         <label htmlFor="name">
           Name
           <input
+            required
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             id="name"
             {...register("name", {
               required: true,
@@ -46,12 +49,18 @@ const RegisterForm = () => {
           )}
         </label>
         <label htmlFor="password">
-          Number
-          <input {...register("password")} id="password" />
+          Password
+          <input {...register("password")} type="password" id="password" />
         </label>
         <label htmlFor="email">
           Email
-          <input {...register("email")} id="email" />
+          <input
+            required
+            pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+            {...register("email")}
+            type="email"
+            id="email"
+          />
         </label>
         <button type="submit">Register</button>
       </RegisterMainForm>

@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
@@ -28,7 +28,7 @@ const Phonebook = () => {
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
-
+  const loggedIn = useSelector((state) => state.setCredentials.isLogin);
   const {
     data = [],
     error,
@@ -51,7 +51,11 @@ const Phonebook = () => {
 
   const [name, setName] = useLocalStorage("name", "");
   const [number, setNumber] = useLocalStorage("number", "");
-
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     toast.success("Auth");
+  //   }
+  // }, [loggedIn]);   // сделать единоразовое оповещение при входе
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":
