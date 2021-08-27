@@ -45,6 +45,12 @@ function App() {
               <NavListItem>
                 <NavigationLink to="/contacts">Contacts</NavigationLink>
               </NavListItem>
+              {/* {loggedIn && (
+                <NavListItem>
+                  <p>userName</p>
+                  <button>Выйти</button>
+                </NavListItem>
+              )} */}
             </NavList>
           </Nav>
         </NavHeader>
