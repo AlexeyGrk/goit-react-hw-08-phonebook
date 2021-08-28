@@ -16,7 +16,11 @@ export const NavigationLink = styled(NavLink)`
   }
 `;
 
-export const Nav = styled.nav``;
+export const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const NavList = styled.ul`
   display: flex;
   list-style: none;

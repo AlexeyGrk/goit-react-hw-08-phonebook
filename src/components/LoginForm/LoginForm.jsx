@@ -2,7 +2,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from "../../redux/services/userApi";
-import { LoginFormContainer, LoginMainForm } from "./LoginForm.styled";
+import {
+  LoginFormContainer,
+  LoginFormEmailInput,
+  LoginFormEmailLabel,
+  LoginFormMainTitle,
+  LoginFormMainTitleContainer,
+  LoginFormPasswordInput,
+  LoginFormPasswordLabel,
+  LoginFormSubmitButton,
+  LoginMainForm,
+} from "./LoginForm.styled";
 import { setCredentials } from "../../redux/slice/authSlice";
 
 const LoginForm = () => {
@@ -32,30 +42,36 @@ const LoginForm = () => {
 
   return (
     <LoginFormContainer>
+      <LoginFormMainTitleContainer>
+        <LoginFormMainTitle>Sign Up</LoginFormMainTitle>
+      </LoginFormMainTitleContainer>
+
       {loggedIn ? (
-        <h1>Вы уже вошли в свой аккаунт </h1>
+        <LoginFormMainTitle>Вы уже вошли в свой аккаунт </LoginFormMainTitle>
       ) : (
         <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="email">
-            Email
-            <input
+          <LoginFormEmailLabel htmlFor="email">
+            {/* Email */}
+            <LoginFormEmailInput
+              placeholder="E-mail"
               required
               // pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
               {...register("email")}
               type="email"
               id="email"
             />
-          </label>
-          <label htmlFor="password">
-            Password
-            <input
+          </LoginFormEmailLabel>
+          <LoginFormPasswordLabel htmlFor="password">
+            {/* Password */}
+            <LoginFormPasswordInput
               required
+              placeholder="Password"
               {...register("password")}
               type="password"
               id="password"
             />
-          </label>
-          <button type="submit">Login</button>
+          </LoginFormPasswordLabel>
+          <LoginFormSubmitButton type="submit">Login</LoginFormSubmitButton>
         </LoginMainForm>
       )}
     </LoginFormContainer>

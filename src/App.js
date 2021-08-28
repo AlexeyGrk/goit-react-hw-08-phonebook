@@ -15,6 +15,7 @@ import {
   NavListItem,
   NavigationLink,
 } from "./App.styled";
+import UserPanel from "./components/UserPannel/UserPanel";
 
 import ContactsPage from "./views/ContactsPage";
 import LoginPage from "./views/LoginPage";
@@ -45,13 +46,8 @@ function App() {
               <NavListItem>
                 <NavigationLink to="/contacts">Contacts</NavigationLink>
               </NavListItem>
-              {/* {loggedIn && (
-                <NavListItem>
-                  <p>userName</p>
-                  <button>Выйти</button>
-                </NavListItem>
-              )} */}
             </NavList>
+            {loggedIn && <UserPanel />}
           </Nav>
         </NavHeader>
 

@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { useAddUserQuery } from "../../redux/services/userApi";
-import { RegisterFormContainer, RegisterMainForm } from "./RegisterForm.styled";
+import {
+  RegisterFormContainer,
+  RegisterFormInput,
+  RegisterFormLabel,
+  RegisterFormSubmitButton,
+  RegisterMainForm,
+  RegistrationFormMainTitle,
+  RegistrationFormMainTitleContainer,
+} from "./RegisterForm.styled";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -30,11 +38,15 @@ const RegisterForm = () => {
 
   return (
     <RegisterFormContainer>
+      <RegistrationFormMainTitleContainer>
+        <RegistrationFormMainTitle>Registration</RegistrationFormMainTitle>
+      </RegistrationFormMainTitleContainer>
       <RegisterMainForm onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="name">
-          Name
-          <input
+        <RegisterFormLabel htmlFor="name">
+          {/* Name */}
+          <RegisterFormInput
             required
+            placeholder="Name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             id="name"
@@ -47,22 +59,31 @@ const RegisterForm = () => {
           {errors.name && errors.name.type === "required" && (
             <span>{errors.message}</span>
           )}
-        </label>
-        <label htmlFor="password">
-          Password
-          <input {...register("password")} type="password" id="password" />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
+        </RegisterFormLabel>
+        <RegisterFormLabel htmlFor="password">
+          {/* Password */}
+          <RegisterFormInput
+            {...register("password")}
+            type="password"
+            id="password"
+            required
+            placeholder="Password"
+          />
+        </RegisterFormLabel>
+        <RegisterFormLabel htmlFor="email">
+          {/* Email */}
+          <RegisterFormInput
+            placeholder="E-mail"
             required
             pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
             {...register("email")}
             type="email"
             id="email"
           />
-        </label>
-        <button type="submit">Register</button>
+        </RegisterFormLabel>
+        <RegisterFormSubmitButton type="submit">
+          Register
+        </RegisterFormSubmitButton>
       </RegisterMainForm>
     </RegisterFormContainer>
   );
