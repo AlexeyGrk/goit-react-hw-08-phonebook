@@ -75,7 +75,7 @@ const RegisterForm = () => {
           <RegisterFormInput
             placeholder="E-mail"
             required
-            pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+            // pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
             {...register("email")}
             type="email"
             id="email"

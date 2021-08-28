@@ -13,7 +13,11 @@ const UserPanel = () => {
   return (
     <UserPanelContainer>
       <UserPanelUserName>{userName}</UserPanelUserName>
-      {/* <userPanelUserImg></userPanelUserImg> */}
+      <UserPanelUserImg
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYkiuKIerNcNp1RkNAuGpRC9YhnYBBjekRUA&usqp=CAU"
+        alt="avatar"
+        width="20px"
+      />
 
       <UserPanelCloseButton>Выйти</UserPanelCloseButton>
     </UserPanelContainer>
