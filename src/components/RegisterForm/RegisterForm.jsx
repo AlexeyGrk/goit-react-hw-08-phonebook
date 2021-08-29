@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useLoginUserMutation } from "../../redux/services/userApi";
+import { setCredentials } from "../../redux/slice/authSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { useAddUserQuery } from "../../redux/services/userApi";
 import {
@@ -11,6 +13,7 @@ import {
   RegistrationFormMainTitle,
   RegistrationFormMainTitleContainer,
 } from "./RegisterForm.styled";
+import { useDispatch } from "react-redux";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -22,9 +25,10 @@ const RegisterForm = () => {
 
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => (
-    setPassword(data.password), setEmail(data.email), setName(data.name)
-  );
+  const dispatch = useDispatch();
+
+  const [loginUserHook, { data: userLoginData, isLoading: isLoadingUser }] =
+    useLoginUserMutation();
   const { data: userData, isLoading: loading } = useAddUserQuery(
     {
       name,
@@ -35,7 +39,23 @@ const RegisterForm = () => {
       skip: !name,
     }
   );
-
+  loginUserHook({
+    email: email,
+    password: password,
+  }); // сделать авторизацию при регистрации
+  const onSubmit = (data) => (
+    setPassword(data.password), setEmail(data.email), setName(data.name)
+  );
+  useEffect(() => {
+    if (userLoginData) {
+      dispatch(
+        setCredentials({
+          user: userLoginData?.user,
+          token: userLoginData?.token,
+        })
+      );
+    }
+  }, [dispatch, email, loginUserHook, password, userLoginData]);
   return (
     <RegisterFormContainer>
       <RegistrationFormMainTitleContainer>
