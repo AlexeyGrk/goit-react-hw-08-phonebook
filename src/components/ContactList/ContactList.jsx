@@ -5,6 +5,7 @@ import {
   ContactListItem,
   ContactListDeleteButton,
   NotFoundContainer,
+  ContactListDeleteButtonText,
 } from "./ContactList.styled";
 
 const ContactList = ({ deleteContact, contacts }) => {
@@ -24,7 +25,7 @@ const ContactList = ({ deleteContact, contacts }) => {
               <ContactListItem key={id}>
                 {name} : {number}
                 <ContactListDeleteButton onClick={() => deleteContact(id)}>
-                  x
+                  <ContactListDeleteButtonText>-</ContactListDeleteButtonText>
                 </ContactListDeleteButton>
               </ContactListItem>
             );

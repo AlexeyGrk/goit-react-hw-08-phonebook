@@ -39,13 +39,14 @@ const RegisterForm = () => {
       skip: !name,
     }
   );
-  loginUserHook({
-    email: email,
-    password: password,
-  }); // сделать авторизацию при регистрации
+  // loginUserHook({
+  //   email: email,
+  //   password: password,
+  // }); // сделать авторизацию при регистрации
   const onSubmit = (data) => (
     setPassword(data.password), setEmail(data.email), setName(data.name)
   );
+
   useEffect(() => {
     if (userLoginData) {
       dispatch(

@@ -18,7 +18,20 @@ export const ContactListItem = styled.li`
   }
 `;
 export const ContactListDeleteButton = styled.button`
+  text-align: center;
   margin: 0 5px;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+`;
+export const ContactListDeleteButtonText = styled.span`
+  color: tomato;
+  font-size: 20px;
+  font-weight: 600;
 `;
 export const NotFoundContainer = styled.div`
   width: 300px;
