@@ -25,7 +25,7 @@ const ContactList = ({ deleteContact, contacts }) => {
               <ContactListItem key={id}>
                 {name} : {number}
                 <ContactListDeleteButton onClick={() => deleteContact(id)}>
-                  <ContactListDeleteButtonText>-</ContactListDeleteButtonText>
+                  <ContactListDeleteButtonText>x</ContactListDeleteButtonText>
                 </ContactListDeleteButton>
               </ContactListItem>
             );

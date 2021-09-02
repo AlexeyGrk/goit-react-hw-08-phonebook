@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from "../../redux/services/userApi";
@@ -34,10 +35,20 @@ const LoginForm = () => {
   }, [dispatch, userLoginData]);
 
   const onSubmit = (data) => {
-    loginUserHook({
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      loginUserHook({
+        email: data.email,
+        password: data.password,
+      });
+
+      toast.success("Welcome to your phonebook", {
+        duration: 4000,
+        position: "top-center",
+        icon: "👏",
+      });
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -51,7 +62,6 @@ const LoginForm = () => {
       ) : (
         <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
           <LoginFormEmailLabel htmlFor="email">
-            {/* Email */}
             <LoginFormEmailInput
               placeholder="E-mail"
               required
@@ -62,7 +72,6 @@ const LoginForm = () => {
             />
           </LoginFormEmailLabel>
           <LoginFormPasswordLabel htmlFor="password">
-            {/* Password */}
             <LoginFormPasswordInput
               required
               placeholder="Password"

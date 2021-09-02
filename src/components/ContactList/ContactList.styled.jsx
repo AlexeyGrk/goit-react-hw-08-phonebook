@@ -20,18 +20,35 @@ export const ContactListItem = styled.li`
 export const ContactListDeleteButton = styled.button`
   text-align: center;
   margin: 0 5px;
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
+  text-decoration: none;
+  color: #333;
+  background: #fff;
   cursor: pointer;
-  outline: inherit;
+  border: 1px solid #333;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.35s;
+  &:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: tomato;
+    transition: all 0.15s;
+    border-radius: 50%;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:hover:after {
+    width: 100%;
+  }
 `;
 export const ContactListDeleteButtonText = styled.span`
-  color: tomato;
-  font-size: 20px;
-  font-weight: 600;
+  position: relative;
+  z-index: 2;
 `;
 export const NotFoundContainer = styled.div`
   width: 300px;
