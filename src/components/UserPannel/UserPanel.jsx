@@ -20,8 +20,9 @@ const UserPanel = () => {
 
   const [logoutUserHook] = useLogoutUserMutation();
   const userName = useSelector(getUserName);
-  const logoutFn = async (token) => {
-    await logoutUserHook(token);
+  const logoutFn = async () => {
+    await logoutUserHook();
+
     dispatch(unSetCredentials());
   };
   return (
@@ -30,10 +31,10 @@ const UserPanel = () => {
       <UserPanelUserImg
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYkiuKIerNcNp1RkNAuGpRC9YhnYBBjekRUA&usqp=CAU"
         alt="avatar"
-        width="30px"
+        width="40px"
       />
 
-      <UserPanelCloseButton onClick={() => logoutFn(userToken)}>
+      <UserPanelCloseButton onClick={() => logoutFn()}>
         Выйти
       </UserPanelCloseButton>
     </UserPanelContainer>

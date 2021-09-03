@@ -7,7 +7,6 @@ export const userApi = createApi({
     baseUrl: "https://connections-api.herokuapp.com",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().setCredentials?.token;
-
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -15,7 +14,7 @@ export const userApi = createApi({
     },
   }),
   tagTypes: ["User"],
-  endpoints: (builder) => ({
+  endpoints: (builder, headers) => ({
     addUser: builder.query({
       query: (user) => ({
         url: `/users/signup`,
@@ -43,6 +42,15 @@ export const userApi = createApi({
 
       invalidatesTags: ["User"],
     }),
+    fetchCurrentUser: builder.mutation({
+      query: () => ({
+        url: `/users/current`,
+        method: "GET",
+        headers,
+      }),
+
+      invalidatesTags: ["User"],
+    }),
 
     // deleteContact: builder.mutation({
     //   query: (todoId) => ({
@@ -65,5 +73,9 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useAddUserQuery, useLoginUserMutation, useLogoutUserMutation } =
-  userApi;
+export const {
+  useAddUserQuery,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+  useFetchCurrentUserMutation,
+} = userApi;

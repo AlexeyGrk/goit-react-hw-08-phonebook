@@ -1,5 +1,4 @@
-import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   BrowserRouter as Router,
@@ -21,9 +20,43 @@ import ContactsPage from "./views/ContactsPage";
 import LoginPage from "./views/LoginPage";
 
 import RegisterPage from "./views/RegisterPage";
-import { getIsLoggedIn } from "./redux/selectors/auth-selectors";
+import { getIsLoggedIn, getUserToken } from "./redux/selectors/auth-selectors";
+import { useEffect } from "react";
+import {
+  useFetchCurrentUserMutation,
+  useLoginUserMutation,
+} from "./redux/services/userApi";
+import { setCredentials } from "./redux/slice/authSlice";
 function App() {
+  const dispatch = useDispatch();
   const loggedIn = useSelector(getIsLoggedIn);
+  const [FetchCurrentUserHook, { data: userData }] =
+    useFetchCurrentUserMutation();
+
+  const userToken = useSelector(getUserToken);
+  const PersistedToken = userToken;
+  useEffect(() => {
+    if (PersistedToken === null) {
+      return;
+    }
+    try {
+      FetchCurrentUserHook();
+    } catch (error) {}
+  }, [FetchCurrentUserHook, PersistedToken]);
+  useEffect(() => {
+    if (userToken === null) {
+      return;
+    }
+    if (userData) {
+      dispatch(
+        setCredentials({
+          user: userData,
+          token: userToken,
+        })
+      );
+    }
+  }, [dispatch, userData, userToken]);
+
   return (
     <Router>
       <div className="App">
@@ -62,7 +95,7 @@ function App() {
             <h1>Start Page</h1>
           </Route>
           <Route path="/contacts" exact>
-            {!loggedIn ? (
+            {!loggedIn && !userToken ? (
               <Redirect to="/login" />
             ) : (
               <ContactsPage></ContactsPage>
