@@ -21,9 +21,9 @@ import ContactsPage from "./views/ContactsPage";
 import LoginPage from "./views/LoginPage";
 
 import RegisterPage from "./views/RegisterPage";
-
+import { getIsLoggedIn } from "./redux/selectors/auth-selectors";
 function App() {
-  const loggedIn = useSelector((state) => state.setCredentials.isLogin);
+  const loggedIn = useSelector(getIsLoggedIn);
   return (
     <Router>
       <div className="App">

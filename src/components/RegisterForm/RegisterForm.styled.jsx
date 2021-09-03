@@ -74,3 +74,11 @@ export const RegisterFormSubmitButton = styled.button`
     transition: 0.1s ease;
   }
 `;
+export const RegisterFormError = styled.p`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  color: tomato;
+`;

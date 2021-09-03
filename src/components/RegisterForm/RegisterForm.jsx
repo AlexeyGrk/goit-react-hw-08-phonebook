@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useLoginUserMutation } from "../../redux/services/userApi";
+
 import { setCredentials } from "../../redux/slice/authSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { useAddUserQuery } from "../../redux/services/userApi";
@@ -12,6 +12,7 @@ import {
   RegisterMainForm,
   RegistrationFormMainTitle,
   RegistrationFormMainTitleContainer,
+  RegisterFormError,
 } from "./RegisterForm.styled";
 import { useDispatch } from "react-redux";
 
@@ -27,7 +28,11 @@ const RegisterForm = () => {
   } = useForm();
   const dispatch = useDispatch();
 
-  const { data: userData, isLoading: loading } = useAddUserQuery(
+  const {
+    data: userData,
+
+    error: registrationError,
+  } = useAddUserQuery(
     {
       name,
       password,
@@ -37,21 +42,24 @@ const RegisterForm = () => {
       skip: !name,
     }
   );
-  // loginUserHook({
-  //   email: email,
-  //   password: password,
-  // }); // сделать авторизацию при регистрации
 
   useEffect(() => {
     if (userData) {
-      dispatch(
-        setCredentials({
-          user: userData?.user,
-          token: userData?.token,
-        })
-      );
+      try {
+        dispatch(
+          setCredentials({
+            user: userData?.user,
+            token: userData?.token,
+          })
+        );
+        toast.success("Registration successful", {
+          icon: "✅ 👤",
+        });
+      } catch (error) {
+        toast.error(registrationError);
+      }
     }
-  }, [dispatch, userData]);
+  }, [dispatch, registrationError, userData]);
   const onSubmit = (data) => (
     setPassword(data.password), setEmail(data.email), setName(data.name)
   );
@@ -102,6 +110,11 @@ const RegisterForm = () => {
           Register
         </RegisterFormSubmitButton>
       </RegisterMainForm>
+      {registrationError && (
+        <RegisterFormError>
+          An account with such mail is already registered
+        </RegisterFormError>
+      )}
     </RegisterFormContainer>
   );
 };

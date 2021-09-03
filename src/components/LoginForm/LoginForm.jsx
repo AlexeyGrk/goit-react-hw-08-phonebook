@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from "../../redux/services/userApi";
@@ -16,11 +16,11 @@ import {
   LoginMainForm,
 } from "./LoginForm.styled";
 import { setCredentials } from "../../redux/slice/authSlice";
-
+import { getIsLoggedIn } from "../../redux/selectors/auth-selectors";
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.setCredentials.isLogin);
+  const loggedIn = useSelector(getIsLoggedIn);
   const [
     loginUserHook,
     {

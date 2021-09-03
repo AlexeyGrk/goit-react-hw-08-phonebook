@@ -1,5 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getUserName,
+  getUserToken,
+} from "../../redux/selectors/auth-selectors";
+import { useLogoutUserMutation } from "../../redux/services/userApi";
+import { unSetCredentials } from "../../redux/slice/authSlice";
 import {
   UserPanelCloseButton,
   UserPanelContainer,
@@ -8,8 +15,15 @@ import {
 } from "./UserPanel.styled";
 
 const UserPanel = () => {
-  const userName = useSelector((state) => state.setCredentials.user.name); // state.setCredentials.user.name попробовать вот так
+  const dispatch = useDispatch();
+  const userToken = useSelector(getUserToken);
 
+  const [logoutUserHook] = useLogoutUserMutation();
+  const userName = useSelector(getUserName);
+  const logoutFn = async (token) => {
+    await logoutUserHook(token);
+    dispatch(unSetCredentials());
+  };
   return (
     <UserPanelContainer>
       <UserPanelUserName>{userName}</UserPanelUserName>
@@ -19,7 +33,9 @@ const UserPanel = () => {
         width="30px"
       />
 
-      <UserPanelCloseButton>Выйти</UserPanelCloseButton>
+      <UserPanelCloseButton onClick={() => logoutFn(userToken)}>
+        Выйти
+      </UserPanelCloseButton>
     </UserPanelContainer>
   );
 };
