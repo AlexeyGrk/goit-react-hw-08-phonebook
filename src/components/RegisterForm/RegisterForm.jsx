@@ -27,8 +27,6 @@ const RegisterForm = () => {
   } = useForm();
   const dispatch = useDispatch();
 
-  const [loginUserHook, { data: userLoginData, isLoading: isLoadingUser }] =
-    useLoginUserMutation();
   const { data: userData, isLoading: loading } = useAddUserQuery(
     {
       name,
@@ -43,28 +41,28 @@ const RegisterForm = () => {
   //   email: email,
   //   password: password,
   // }); // сделать авторизацию при регистрации
+
+  useEffect(() => {
+    if (userData) {
+      dispatch(
+        setCredentials({
+          user: userData?.user,
+          token: userData?.token,
+        })
+      );
+    }
+  }, [dispatch, userData]);
   const onSubmit = (data) => (
     setPassword(data.password), setEmail(data.email), setName(data.name)
   );
 
-  useEffect(() => {
-    if (userLoginData) {
-      dispatch(
-        setCredentials({
-          user: userLoginData?.user,
-          token: userLoginData?.token,
-        })
-      );
-    }
-  }, [dispatch, email, loginUserHook, password, userLoginData]);
   return (
     <RegisterFormContainer>
       <RegistrationFormMainTitleContainer>
-        <RegistrationFormMainTitle>Registration</RegistrationFormMainTitle>
+        <RegistrationFormMainTitle>Sign Up</RegistrationFormMainTitle>
       </RegistrationFormMainTitleContainer>
       <RegisterMainForm onSubmit={handleSubmit(onSubmit)}>
         <RegisterFormLabel htmlFor="name">
-          {/* Name */}
           <RegisterFormInput
             required
             placeholder="Name"
@@ -82,7 +80,6 @@ const RegisterForm = () => {
           )}
         </RegisterFormLabel>
         <RegisterFormLabel htmlFor="password">
-          {/* Password */}
           <RegisterFormInput
             {...register("password")}
             type="password"
@@ -92,7 +89,6 @@ const RegisterForm = () => {
           />
         </RegisterFormLabel>
         <RegisterFormLabel htmlFor="email">
-          {/* Email */}
           <RegisterFormInput
             placeholder="E-mail"
             required

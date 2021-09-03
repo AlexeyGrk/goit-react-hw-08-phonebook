@@ -7,6 +7,7 @@ import {
   LoginFormContainer,
   LoginFormEmailInput,
   LoginFormEmailLabel,
+  LoginFormErrorMessage,
   LoginFormMainTitle,
   LoginFormMainTitleContainer,
   LoginFormPasswordInput,
@@ -20,8 +21,15 @@ const LoginForm = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.setCredentials.isLogin);
-  const [loginUserHook, { data: userLoginData, isLoading: isLoadingUser }] =
-    useLoginUserMutation();
+  const [
+    loginUserHook,
+    {
+      data: userLoginData,
+      isLoading: isLoadingUser,
+      error: errorLogin,
+      isSuccess: isSuccessLogin,
+    },
+  ] = useLoginUserMutation();
 
   useEffect(() => {
     if (userLoginData) {
@@ -31,6 +39,11 @@ const LoginForm = () => {
           token: userLoginData?.token,
         })
       );
+      toast.success("Welcome to your phonebook", {
+        duration: 4000,
+        position: "top-center",
+        icon: "👏",
+      });
     }
   }, [dispatch, userLoginData]);
 
@@ -40,50 +53,51 @@ const LoginForm = () => {
         email: data.email,
         password: data.password,
       });
-
-      toast.success("Welcome to your phonebook", {
-        duration: 4000,
-        position: "top-center",
-        icon: "👏",
-      });
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <LoginFormContainer>
-      <LoginFormMainTitleContainer>
-        <LoginFormMainTitle>Sign Up</LoginFormMainTitle>
-      </LoginFormMainTitleContainer>
+    <>
+      <LoginFormContainer>
+        <LoginFormMainTitleContainer>
+          <LoginFormMainTitle>Login</LoginFormMainTitle>
+        </LoginFormMainTitleContainer>
 
-      {loggedIn ? (
-        <LoginFormMainTitle>Вы уже вошли в свой аккаунт </LoginFormMainTitle>
-      ) : (
-        <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
-          <LoginFormEmailLabel htmlFor="email">
-            <LoginFormEmailInput
-              placeholder="E-mail"
-              required
-              // pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
-              {...register("email")}
-              type="email"
-              id="email"
-            />
-          </LoginFormEmailLabel>
-          <LoginFormPasswordLabel htmlFor="password">
-            <LoginFormPasswordInput
-              required
-              placeholder="Password"
-              {...register("password")}
-              type="password"
-              id="password"
-            />
-          </LoginFormPasswordLabel>
-          <LoginFormSubmitButton type="submit">Login</LoginFormSubmitButton>
-        </LoginMainForm>
-      )}
-    </LoginFormContainer>
+        {loggedIn ? (
+          <LoginFormMainTitle>Вы уже вошли в свой аккаунт </LoginFormMainTitle>
+        ) : (
+          <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
+            <LoginFormEmailLabel htmlFor="email">
+              <LoginFormEmailInput
+                placeholder="E-mail"
+                required
+                // pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                {...register("email")}
+                type="email"
+                id="email"
+              />
+            </LoginFormEmailLabel>
+            <LoginFormPasswordLabel htmlFor="password">
+              <LoginFormPasswordInput
+                required
+                placeholder="Password"
+                {...register("password")}
+                type="password"
+                id="password"
+              />
+            </LoginFormPasswordLabel>
+            <LoginFormSubmitButton type="submit">Login</LoginFormSubmitButton>
+          </LoginMainForm>
+        )}
+        {errorLogin && (
+          <LoginFormErrorMessage>
+            *Please enter a valid email address or password
+          </LoginFormErrorMessage>
+        )}
+      </LoginFormContainer>
+    </>
   );
 };
 

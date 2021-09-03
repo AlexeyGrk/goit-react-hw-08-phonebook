@@ -24,8 +24,8 @@ export const ContactListDeleteButton = styled.button`
   color: #333;
   background: #fff;
   cursor: pointer;
-  border: 1px solid #333;
-  border-radius: 50%;
+  border: 1px solid #fff;
+
   position: relative;
   transition: all 0.35s;
   &:after {
@@ -37,7 +37,7 @@ export const ContactListDeleteButton = styled.button`
     height: 100%;
     background: tomato;
     transition: all 0.15s;
-    border-radius: 50%;
+    border-radius: 49% 51% 47% 53% / 18% 16% 84% 82%;
   }
   &:hover {
     color: #fff;

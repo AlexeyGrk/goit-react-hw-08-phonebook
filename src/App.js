@@ -53,7 +53,7 @@ function App() {
 
         <Switch>
           <Route path="/register">
-            <RegisterPage />
+            {loggedIn ? <Redirect to="/contacts" /> : <RegisterPage />}
           </Route>
           <Route path="/login">
             {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}

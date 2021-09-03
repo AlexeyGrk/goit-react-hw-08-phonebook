@@ -94,3 +94,33 @@ export const LoginFormSubmitButton = styled.button`
     transition: 0.1s ease;
   }
 `;
+export const LoginFormErrorMessage = styled.p`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  color: tomato;
+`;
+// input:focus ~ .floating-label,
+// input:not(:focus):valid ~ .floating-label{
+//   top: 8px;
+//   bottom: 10px;
+//   left: 20px;
+//   font-size: 11px;
+//   opacity: 1;
+// }
+
+// .inputText {
+//   font-size: 14px;
+//   width: 200px;
+//   height: 35px;
+// }
+
+// .floating-label {
+//   position: absolute;
+//   pointer-events: none;
+//   left: 20px;
+//   top: 18px;
+//   transition: 0.2s ease all;
+// }
