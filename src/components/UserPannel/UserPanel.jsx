@@ -16,7 +16,6 @@ import {
 
 const UserPanel = () => {
   const dispatch = useDispatch();
-  const userToken = useSelector(getUserToken);
 
   const [logoutUserHook] = useLogoutUserMutation();
   const userName = useSelector(getUserName);
@@ -35,7 +34,7 @@ const UserPanel = () => {
       />
 
       <UserPanelCloseButton onClick={() => logoutFn()}>
-        Выйти
+        Logout
       </UserPanelCloseButton>
     </UserPanelContainer>
   );

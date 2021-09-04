@@ -27,6 +27,7 @@ import {
   useLoginUserMutation,
 } from "./redux/services/userApi";
 import { setCredentials } from "./redux/slice/authSlice";
+import Home from "./components/Home/Home";
 function App() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(getIsLoggedIn);
@@ -92,7 +93,7 @@ function App() {
             {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}
           </Route>
           <Route path="/" exact>
-            <h1>Start Page</h1>
+            <Home />
           </Route>
           <Route path="/contacts" exact>
             {!loggedIn && !userToken ? (
