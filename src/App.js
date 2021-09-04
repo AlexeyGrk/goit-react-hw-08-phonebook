@@ -77,9 +77,11 @@ function App() {
                   <NavigationLink to="/login">Login</NavigationLink>
                 </NavListItem>
               )}
-              <NavListItem>
-                <NavigationLink to="/contacts">Contacts</NavigationLink>
-              </NavListItem>
+              {loggedIn && (
+                <NavListItem>
+                  <NavigationLink to="/contacts">Contacts</NavigationLink>
+                </NavListItem>
+              )}
             </NavList>
             {loggedIn && <UserPanel />}
           </Nav>
