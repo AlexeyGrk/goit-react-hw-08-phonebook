@@ -71,7 +71,7 @@ const LoginForm = () => {
           <LoginMainForm onSubmit={handleSubmit(onSubmit)}>
             <LoginFormEmailLabel htmlFor="email">
               <LoginFormEmailInput
-                placeholder="E-mail"
+                placeholder="*E-mail"
                 required
                 // pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
                 {...register("email")}
@@ -82,7 +82,7 @@ const LoginForm = () => {
             <LoginFormPasswordLabel htmlFor="password">
               <LoginFormPasswordInput
                 required
-                placeholder="Password"
+                placeholder="*Password"
                 {...register("password")}
                 type="password"
                 id="password"

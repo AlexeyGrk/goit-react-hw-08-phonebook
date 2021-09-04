@@ -16,7 +16,7 @@ const Home = () => {
   const loggedIn = useSelector(getIsLoggedIn);
   return (
     <HomePageContainer>
-      <HomePageMainTitle>Hi, I'm your phonebook.</HomePageMainTitle>
+      <HomePageMainTitle>Hi, I'm your phonebook.&#128222;</HomePageMainTitle>
       <HomePageBottomContainer>
         <HomePageBottomText>
           I will help you to be always in touch with your friends.

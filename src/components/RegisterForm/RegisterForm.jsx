@@ -73,7 +73,7 @@ const RegisterForm = () => {
         <RegisterFormLabel htmlFor="name">
           <RegisterFormInput
             required
-            placeholder="Name"
+            placeholder="*Name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             id="name"
@@ -93,12 +93,12 @@ const RegisterForm = () => {
             type="password"
             id="password"
             required
-            placeholder="Password"
+            placeholder="*Password"
           />
         </RegisterFormLabel>
         <RegisterFormLabel htmlFor="email">
           <RegisterFormInput
-            placeholder="E-mail"
+            placeholder="*E-mail"
             required
             // pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
             {...register("email")}
