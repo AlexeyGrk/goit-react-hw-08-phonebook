@@ -52,11 +52,6 @@ const Phonebook = () => {
   const [name, setName] = useLocalStorage("name", "");
   const [number, setNumber] = useLocalStorage("number", "");
 
-  // let isShowAuthNotify = useRef(true);
-  // useEffect(() => {
-  //   toast.success("Auth cool");
-  //   isShowAuthNotify = false;
-  // }, []); // сделать единоразовое оповещение при входе
   const handleChange = (e) => {
     switch (e.target.name) {
       case "name":

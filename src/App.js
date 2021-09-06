@@ -16,18 +16,14 @@ import {
 } from "./App.styled";
 import UserPanel from "./components/UserPannel/UserPanel";
 
-import ContactsPage from "./views/ContactsPage";
-import LoginPage from "./views/LoginPage";
-
-import RegisterPage from "./views/RegisterPage";
 import { getIsLoggedIn, getUserToken } from "./redux/selectors/auth-selectors";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import {
   useFetchCurrentUserMutation,
   useLoginUserMutation,
 } from "./redux/services/userApi";
 import { setCredentials } from "./redux/slice/authSlice";
-import Home from "./components/Home/Home";
+
 function App() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(getIsLoggedIn);
@@ -57,7 +53,18 @@ function App() {
       );
     }
   }, [dispatch, userData, userToken]);
-
+  const HomePage = lazy(() =>
+    import("./views/HomePage" /* webpackChunkName: "HomePage" */)
+  );
+  const ContactsPage = lazy(() =>
+    import("./views/ContactsPage" /* webpackChunkName: "ContactsPage" */)
+  );
+  const LoginPage = lazy(() =>
+    import("./views/LoginPage" /* webpackChunkName: "LoginPage" */)
+  );
+  const RegisterPage = lazy(() =>
+    import("./views/RegisterPage" /* webpackChunkName: "RegisterPage" */)
+  );
   return (
     <Router>
       <div className="App">
@@ -86,25 +93,26 @@ function App() {
             {loggedIn && <UserPanel />}
           </Nav>
         </NavHeader>
-
-        <Switch>
-          <Route path="/register">
-            {loggedIn ? <Redirect to="/contacts" /> : <RegisterPage />}
-          </Route>
-          <Route path="/login">
-            {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}
-          </Route>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/contacts" exact>
-            {!loggedIn && !userToken ? (
-              <Redirect to="/login" />
-            ) : (
-              <ContactsPage></ContactsPage>
-            )}
-          </Route>
-        </Switch>
+        <Suspense fallback="...Loading">
+          <Switch>
+            <Route path="/register">
+              {loggedIn ? <Redirect to="/contacts" /> : <RegisterPage />}
+            </Route>
+            <Route path="/login">
+              {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}
+            </Route>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path="/contacts" exact>
+              {!loggedIn && !userToken ? (
+                <Redirect to="/login" />
+              ) : (
+                <ContactsPage></ContactsPage>
+              )}
+            </Route>
+          </Switch>
+        </Suspense>
       </div>
     </Router>
   );
