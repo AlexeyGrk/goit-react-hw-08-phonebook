@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import Loader from "react-loader-spinner";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,6 +13,7 @@ import {
   NavList,
   NavListItem,
   NavigationLink,
+  LoaderContainer,
 } from "./App.styled";
 import UserPanel from "./components/UserPannel/UserPanel";
 
@@ -93,7 +94,19 @@ function App() {
             {loggedIn && <UserPanel />}
           </Nav>
         </NavHeader>
-        <Suspense fallback="...Loading">
+        <Suspense
+          fallback={
+            <LoaderContainer>
+              <Loader
+                type="MutatingDots"
+                color="tomato"
+                height={80}
+                width={80}
+                timeout={3000}
+              />
+            </LoaderContainer>
+          }
+        >
           <Switch>
             <Route path="/register">
               {loggedIn ? <Redirect to="/contacts" /> : <RegisterPage />}

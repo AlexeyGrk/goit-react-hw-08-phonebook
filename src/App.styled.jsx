@@ -32,3 +32,9 @@ export const NavList = styled.ul`
 export const NavListItem = styled.li`
   padding: 20px;
 `;
+export const LoaderContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
