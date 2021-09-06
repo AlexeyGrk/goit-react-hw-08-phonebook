@@ -28,11 +28,7 @@ const RegisterForm = () => {
   } = useForm();
   const dispatch = useDispatch();
 
-  const {
-    data: userData,
-
-    error: registrationError,
-  } = useAddUserQuery(
+  const { data: userData, error: registrationError } = useAddUserQuery(
     {
       name,
       password,

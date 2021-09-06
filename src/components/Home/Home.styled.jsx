@@ -12,7 +12,9 @@ export const HomePageMainTitle = styled.h1`
   }
 `;
 export const HomePageImage = styled.img`
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
   position: absolute;
   bottom: 100%;
   left: 0;

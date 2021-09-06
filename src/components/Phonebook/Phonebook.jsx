@@ -28,7 +28,6 @@ const Phonebook = () => {
   const [deleteContactHook, { isLoading: isDeleting }] =
     useDeleteContactMutation();
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
-  const loggedIn = useSelector((state) => state.setCredentials.isLogin);
   const {
     data = [],
     error,

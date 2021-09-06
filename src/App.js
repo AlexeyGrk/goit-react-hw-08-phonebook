@@ -24,6 +24,8 @@ import {
   useLoginUserMutation,
 } from "./redux/services/userApi";
 import { setCredentials } from "./redux/slice/authSlice";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,13 +40,18 @@ function App() {
       return;
     }
     try {
+      if (userData) {
+        return;
+      }
       FetchCurrentUserHook();
     } catch (error) {}
-  }, [FetchCurrentUserHook, PersistedToken]);
+  }, [FetchCurrentUserHook, PersistedToken, userData]);
+
   useEffect(() => {
     if (userToken === null) {
       return;
     }
+
     if (userData) {
       dispatch(
         setCredentials({
@@ -108,22 +115,18 @@ function App() {
           }
         >
           <Switch>
-            <Route path="/register">
-              {loggedIn ? <Redirect to="/contacts" /> : <RegisterPage />}
-            </Route>
-            <Route path="/login">
-              {loggedIn ? <Redirect to="/contacts" /> : <LoginPage></LoginPage>}
-            </Route>
-            <Route path="/" exact>
+            <PublicRoute path="/" exact>
               <HomePage />
-            </Route>
-            <Route path="/contacts" exact>
-              {!loggedIn && !userToken ? (
-                <Redirect to="/login" />
-              ) : (
-                <ContactsPage></ContactsPage>
-              )}
-            </Route>
+            </PublicRoute>
+            <PublicRoute path="/register" restricted redirectTo="/contacts">
+              {!userToken && <RegisterPage />}
+            </PublicRoute>
+            <PublicRoute path="/login" redirectTo="/contacts" restricted>
+              {!userToken && <LoginPage />}
+            </PublicRoute>
+            <PrivateRoute path="/contacts" exact redirectTo="/login">
+              <ContactsPage />
+            </PrivateRoute>
           </Switch>
         </Suspense>
       </div>
