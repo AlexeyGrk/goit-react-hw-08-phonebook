@@ -40,7 +40,13 @@ export const UserPanelCloseButton = styled.button`
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
   }
+  @media (max-width: 768px) {
+    width: 80px;
+  }
 `;
 export const UserPanelUserImg = styled.img`
   margin: 0 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;

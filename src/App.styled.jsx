@@ -19,6 +19,9 @@ export const NavigationLink = styled(NavLink)`
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const NavList = styled.ul`
@@ -28,10 +31,17 @@ export const NavList = styled.ul`
   margin-block-end: 0;
   padding-inline-start: 0;
   padding: 0 10px;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 export const NavListItem = styled.li`
   padding: 20px;
+  @media (max-width: 768px) {
+    padding: 20px 10px;
+  }
 `;
+
 export const LoaderContainer = styled.div`
   position: absolute;
   left: 50%;

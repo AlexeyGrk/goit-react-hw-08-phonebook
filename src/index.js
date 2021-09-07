@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { PersistGate } from "redux-persist/integration/react";
+import { Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
@@ -12,7 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <Container fluid>
+          <App />
+        </Container>
       </PersistGate>
     </Provider>
   </React.StrictMode>,
