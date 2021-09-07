@@ -22,10 +22,12 @@ import PublicRoute from "./components/Routes/PublicRoute";
 function App() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(getIsLoggedIn);
-  const { data: userData } = useFetchCurrentUserQuery();
+
   const userToken = useSelector(getUserToken);
   const PersistedToken = userToken;
-
+  const { data: userData } = useFetchCurrentUserQuery("current", {
+    skip: PersistedToken === null,
+  });
   useEffect(() => {
     if (PersistedToken === null) {
       return;

@@ -43,7 +43,7 @@ export const userApi = createApi({
       invalidatesTags: ["User"],
     }),
     fetchCurrentUser: builder.query({
-      query: () => `/users/current`,
+      query: (arg) => `/users/${arg}`,
       headers,
       invalidatesTags: ["User"],
     }),
