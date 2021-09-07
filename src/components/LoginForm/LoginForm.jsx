@@ -45,7 +45,7 @@ const LoginForm = () => {
         icon: "👏",
       });
     }
-  }, [dispatch, isSuccessLogin, userLoginData]);
+  }, [dispatch, userLoginData]);
 
   const onSubmit = (data) => {
     try {

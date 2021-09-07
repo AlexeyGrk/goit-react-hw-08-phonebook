@@ -1,10 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getUserName,
-  getUserToken,
-} from "../../redux/selectors/auth-selectors";
+import { getUserName } from "../../redux/selectors/auth-selectors";
 import { useLogoutUserMutation } from "../../redux/services/userApi";
 import { unSetCredentials } from "../../redux/slice/authSlice";
 import {

@@ -33,7 +33,12 @@ const Phonebook = () => {
     error,
     isFetching,
     isLoading: isLoadingContacts,
-  } = useGetContactsQuery();
+  } = useGetContactsQuery("", {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
+
   const contacts = data;
 
   const useLocalStorage = (key, defaultValue) => {

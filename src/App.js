@@ -1,11 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "react-loader-spinner";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import {
   NavHeader,
@@ -19,10 +14,7 @@ import UserPanel from "./components/UserPannel/UserPanel";
 
 import { getIsLoggedIn, getUserToken } from "./redux/selectors/auth-selectors";
 import { lazy, Suspense, useEffect } from "react";
-import {
-  useFetchCurrentUserMutation,
-  useLoginUserMutation,
-} from "./redux/services/userApi";
+import { useFetchCurrentUserQuery } from "./redux/services/userApi";
 import { setCredentials } from "./redux/slice/authSlice";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
@@ -30,37 +22,26 @@ import PublicRoute from "./components/Routes/PublicRoute";
 function App() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(getIsLoggedIn);
-  const [FetchCurrentUserHook, { data: userData }] =
-    useFetchCurrentUserMutation();
-
+  const { data: userData } = useFetchCurrentUserQuery();
   const userToken = useSelector(getUserToken);
   const PersistedToken = userToken;
+
   useEffect(() => {
     if (PersistedToken === null) {
       return;
     }
-    try {
-      if (userData) {
-        return;
-      }
-      FetchCurrentUserHook();
-    } catch (error) {}
-  }, [FetchCurrentUserHook, PersistedToken, userData]);
-
-  useEffect(() => {
-    if (userToken === null) {
+    if (loggedIn) {
       return;
     }
-
     if (userData) {
       dispatch(
         setCredentials({
           user: userData,
-          token: userToken,
+          token: PersistedToken,
         })
       );
     }
-  }, [dispatch, userData, userToken]);
+  }, [dispatch, userData, PersistedToken, loggedIn]);
   const HomePage = lazy(() =>
     import("./views/HomePage" /* webpackChunkName: "HomePage" */)
   );
@@ -119,10 +100,10 @@ function App() {
               <HomePage />
             </PublicRoute>
             <PublicRoute path="/register" restricted redirectTo="/contacts">
-              {!userToken && <RegisterPage />}
+              <RegisterPage />
             </PublicRoute>
             <PublicRoute path="/login" redirectTo="/contacts" restricted>
-              {!userToken && <LoginPage />}
+              <LoginPage />
             </PublicRoute>
             <PrivateRoute path="/contacts" exact redirectTo="/login">
               <ContactsPage />

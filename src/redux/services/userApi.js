@@ -42,13 +42,9 @@ export const userApi = createApi({
 
       invalidatesTags: ["User"],
     }),
-    fetchCurrentUser: builder.mutation({
-      query: () => ({
-        url: `/users/current`,
-        method: "GET",
-        headers,
-      }),
-
+    fetchCurrentUser: builder.query({
+      query: () => `/users/current`,
+      headers,
       invalidatesTags: ["User"],
     }),
 
@@ -77,5 +73,5 @@ export const {
   useAddUserQuery,
   useLoginUserMutation,
   useLogoutUserMutation,
-  useFetchCurrentUserMutation,
+  useFetchCurrentUserQuery,
 } = userApi;
