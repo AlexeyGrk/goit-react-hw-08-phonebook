@@ -1,12 +1,16 @@
 import styled from "@emotion/styled/macro";
+import { device } from "../../devices/device-sizes";
+
 export const UserPanelContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 export const UserPanelUserName = styled.p`
   margin: 0 10px;
+  padding: 5px;
   font-weight: 600;
   border: 1px solid tomato;
+  text-transform: capitalize;
 `;
 export const UserPanelCloseButton = styled.button`
   text-align: center;
@@ -40,13 +44,13 @@ export const UserPanelCloseButton = styled.button`
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
   }
-  @media (max-width: 768px) {
+  @media ${device.tablet} {
     width: 80px;
   }
 `;
 export const UserPanelUserImg = styled.img`
   margin: 0 20px;
-  @media (max-width: 768px) {
+  @media ${device.tablet} {
     display: none;
   }
 `;

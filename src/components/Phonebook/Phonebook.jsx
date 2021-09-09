@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
@@ -30,7 +30,6 @@ const Phonebook = () => {
   const [addContactHook, { isLoading: isAdding }] = useAddContactMutation();
   const {
     data = [],
-    error,
     isFetching,
     isLoading: isLoadingContacts,
   } = useGetContactsQuery("", {

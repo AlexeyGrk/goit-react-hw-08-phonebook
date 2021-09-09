@@ -17,11 +17,9 @@ export const NavigationLink = styled(NavLink)`
 `;
 
 export const Nav = styled.nav`
+  padding: 5px;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
 `;
 
 export const NavList = styled.ul`
